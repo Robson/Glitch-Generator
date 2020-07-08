@@ -1,5 +1,5 @@
 # Glitch Generator
-A C# tool that allows you to apply a wide range of glitches to images. Includes a few extra features, such as applying random glitches, outputting multiple glitched images, etc.
+A C# tool for applying a wide range of glitches to images. Includes a few extra features, such as applying random glitches, outputting multiple glitched images, etc.
 
 All of the included images are public domain. All output images should also be considered public domain as well.
 
