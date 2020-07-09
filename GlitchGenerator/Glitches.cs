@@ -152,6 +152,7 @@
 
         internal static Bitmap FileCorruptBlank(Bitmap bitmap)
         {
+            Thread.Sleep(500);
             var duplicate = (Image)bitmap.Clone();
             var filename = Path.GetTempFileName() + RNG.Random.Next(10000) + ".png";
             duplicate.Save(filename);
@@ -168,11 +169,13 @@
                 }
             }
 
+            Thread.Sleep(500);
             return (Bitmap)Image.FromFile(filename);
         }
 
         internal static Bitmap FileCorruptDelete(Bitmap bitmap)
         {
+            Thread.Sleep(500);
             var duplicate = (Image)bitmap.Clone();
             var filename = Path.GetTempFileName() + ".png";
             duplicate.Save(filename);
@@ -200,11 +203,13 @@
                 stream.SetLength(stream.Position); // trim the file
             }
 
+            Thread.Sleep(500);
             return (Bitmap)Image.FromFile(filename);
         }
 
         internal static Bitmap FileCorruptNoise(Bitmap bitmap)
         {
+            Thread.Sleep(500);
             var duplicate = (Image)bitmap.Clone();
             var filename = Path.GetTempFileName() + ".png";
             duplicate.Save(filename);
@@ -224,6 +229,7 @@
                 }
             }
 
+            Thread.Sleep(500);
             return (Bitmap)Image.FromFile(filename);
         }
 
