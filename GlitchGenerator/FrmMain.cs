@@ -173,12 +173,12 @@
                 GC.GetTotalMemory(forceFullCollection: true);
                 this.formBitmap = (Bitmap)originalImage.Clone();
                 this.formGraphics = Graphics.FromImage(this.formBitmap);
-                this.ApplyRandomGlitch(RNG.Random.Next(2, 10), isAllowingCompression: false);
+                this.ApplyRandomGlitch(RNG.Random.Next(3, 10), isAllowingCompression: false);
                 if (i < 10)
                 {
                     var x = i % 3;
                     var y = (int)(i / 3);
-                    collageGraphics.DrawImage(this.formBitmap, this.formBitmap.Width * x, this.formBitmap.Height * y);
+                    collageGraphics.DrawImage(this.formBitmap, new RectangleF(this.formBitmap.Width * x, this.formBitmap.Height * y, this.formBitmap.Width, this.formBitmap.Height));
                 }
                 this.Invalidate();
                 this.Refresh();
