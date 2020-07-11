@@ -287,17 +287,17 @@
             }
         } 
 
-        private void smallToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SmallGeometricToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateRandomGeometricImage(500, 500, 200);
         }
 
-        private void mediumToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MediumGeometricToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateRandomGeometricImage(1000, 1000, 300);
         }
 
-        private void largeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LargeGeometricToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateRandomGeometricImage(1920, 1080, 400);
         }
@@ -352,5 +352,52 @@
             this.UndoToolStripMenuItem.Enabled = false;
         }
 
+        private void SmallImagesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateRandomImage(500, 500, 0.5f);
+        }
+
+        private void MediumImagesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateRandomImage(1000, 1000, 0.75f);
+        }
+
+        private void LargeImagesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateRandomImage(1920, 1080, 1f);
+        }
+
+        private void CreateRandomImage(int width, int height, float multiplier)
+        {
+            this.formBitmap = new Bitmap(width, height);
+            var filename = Path.GetTempFileName() + ".png";
+            this.formBitmap.Save(filename);
+            this.filenames.Push(filename);
+            this.formGraphics = Graphics.FromImage(this.formBitmap);
+            this.formGraphics.Clear(Color.Black);
+
+            var sources = Directory.GetFiles(Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar + "Examples", "*.*");
+
+            for (int i = 0; i < 100; i++)
+            {
+                var source = new Bitmap(sources[RNG.Random.Next(sources.Length)]);
+                var sourceW = RNG.Random.Next(200, source.Width);
+                var sourceH = RNG.Random.Next(200, source.Height);
+                var sourceX = RNG.Random.Next(0, source.Width - sourceW);
+                var sourceY = RNG.Random.Next(0, source.Height - sourceH);
+                var destinationW = (int)(sourceW * multiplier);
+                var destinationH = (int)(sourceH * multiplier);
+                var destinationX = RNG.Random.Next(-300, (this.formBitmap.Width + 300) - destinationW);
+                var destinationY = RNG.Random.Next(-300, (this.formBitmap.Height + 300) - destinationH);
+                this.formGraphics.DrawImage(source, new Rectangle(destinationX, destinationY, destinationW, destinationH), new Rectangle(sourceX, sourceY, sourceW, sourceH), GraphicsUnit.Point);
+            }
+
+            this.Invalidate();
+            foreach (ToolStripMenuItem menu in this.MainMenuStrip.Items)
+            {
+                menu.Enabled = true;
+            }
+            this.UndoToolStripMenuItem.Enabled = false;
+        }
     }
 }

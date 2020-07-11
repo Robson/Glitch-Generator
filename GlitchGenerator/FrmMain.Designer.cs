@@ -32,9 +32,10 @@
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.browseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.randomGeometricToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.smallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mediumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.largeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SmallGeometricToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MediumGeometricToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LargeGeometricToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.randomImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UndoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.randomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +49,9 @@
             this.randomToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.ofd = new System.Windows.Forms.OpenFileDialog();
             this.sfd = new System.Windows.Forms.SaveFileDialog();
+            this.SmallImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MediumImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LargeImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,7 +72,8 @@
             // 
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.browseToolStripMenuItem,
-            this.randomGeometricToolStripMenuItem});
+            this.randomGeometricToolStripMenuItem,
+            this.randomImageToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.newToolStripMenuItem.Text = "New";
@@ -83,33 +88,43 @@
             // randomGeometricToolStripMenuItem
             // 
             this.randomGeometricToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.smallToolStripMenuItem,
-            this.mediumToolStripMenuItem,
-            this.largeToolStripMenuItem});
+            this.SmallGeometricToolStripMenuItem,
+            this.MediumGeometricToolStripMenuItem,
+            this.LargeGeometricToolStripMenuItem});
             this.randomGeometricToolStripMenuItem.Name = "randomGeometricToolStripMenuItem";
             this.randomGeometricToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.randomGeometricToolStripMenuItem.Text = "Random Geometric";
             // 
-            // smallToolStripMenuItem
+            // SmallGeometricToolStripMenuItem
             // 
-            this.smallToolStripMenuItem.Name = "smallToolStripMenuItem";
-            this.smallToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.smallToolStripMenuItem.Text = "Small";
-            this.smallToolStripMenuItem.Click += new System.EventHandler(this.smallToolStripMenuItem_Click);
+            this.SmallGeometricToolStripMenuItem.Name = "SmallGeometricToolStripMenuItem";
+            this.SmallGeometricToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SmallGeometricToolStripMenuItem.Text = "Small";
+            this.SmallGeometricToolStripMenuItem.Click += new System.EventHandler(this.SmallGeometricToolStripMenuItem_Click);
             // 
-            // mediumToolStripMenuItem
+            // MediumGeometricToolStripMenuItem
             // 
-            this.mediumToolStripMenuItem.Name = "mediumToolStripMenuItem";
-            this.mediumToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.mediumToolStripMenuItem.Text = "Medium";
-            this.mediumToolStripMenuItem.Click += new System.EventHandler(this.mediumToolStripMenuItem_Click);
+            this.MediumGeometricToolStripMenuItem.Name = "MediumGeometricToolStripMenuItem";
+            this.MediumGeometricToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.MediumGeometricToolStripMenuItem.Text = "Medium";
+            this.MediumGeometricToolStripMenuItem.Click += new System.EventHandler(this.MediumGeometricToolStripMenuItem_Click);
             // 
-            // largeToolStripMenuItem
+            // LargeGeometricToolStripMenuItem
             // 
-            this.largeToolStripMenuItem.Name = "largeToolStripMenuItem";
-            this.largeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.largeToolStripMenuItem.Text = "Large";
-            this.largeToolStripMenuItem.Click += new System.EventHandler(this.largeToolStripMenuItem_Click);
+            this.LargeGeometricToolStripMenuItem.Name = "LargeGeometricToolStripMenuItem";
+            this.LargeGeometricToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.LargeGeometricToolStripMenuItem.Text = "Large";
+            this.LargeGeometricToolStripMenuItem.Click += new System.EventHandler(this.LargeGeometricToolStripMenuItem_Click);
+            // 
+            // randomImageToolStripMenuItem
+            // 
+            this.randomImageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SmallImagesToolStripMenuItem,
+            this.MediumImagesToolStripMenuItem,
+            this.LargeImagesToolStripMenuItem});
+            this.randomImageToolStripMenuItem.Name = "randomImageToolStripMenuItem";
+            this.randomImageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.randomImageToolStripMenuItem.Text = "Random Image";
             // 
             // saveToolStripMenuItem
             // 
@@ -192,6 +207,27 @@
             // 
             this.ofd.FileName = "openFileDialog1";
             // 
+            // SmallImagesToolStripMenuItem
+            // 
+            this.SmallImagesToolStripMenuItem.Name = "SmallImagesToolStripMenuItem";
+            this.SmallImagesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SmallImagesToolStripMenuItem.Text = "Small";
+            this.SmallImagesToolStripMenuItem.Click += new System.EventHandler(this.SmallImagesToolStripMenuItem_Click);
+            // 
+            // MediumImagesToolStripMenuItem
+            // 
+            this.MediumImagesToolStripMenuItem.Name = "MediumImagesToolStripMenuItem";
+            this.MediumImagesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.MediumImagesToolStripMenuItem.Text = "Medium";
+            this.MediumImagesToolStripMenuItem.Click += new System.EventHandler(this.MediumImagesToolStripMenuItem_Click);
+            // 
+            // LargeImagesToolStripMenuItem
+            // 
+            this.LargeImagesToolStripMenuItem.Name = "LargeImagesToolStripMenuItem";
+            this.LargeImagesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.LargeImagesToolStripMenuItem.Text = "Large";
+            this.LargeImagesToolStripMenuItem.Click += new System.EventHandler(this.LargeImagesToolStripMenuItem_Click);
+            // 
             // FrmDisplay
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -230,9 +266,13 @@
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem browseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem randomGeometricToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem smallToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mediumToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem largeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SmallGeometricToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MediumGeometricToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem LargeGeometricToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem randomImageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SmallImagesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MediumImagesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem LargeImagesToolStripMenuItem;
     }
 }
 
