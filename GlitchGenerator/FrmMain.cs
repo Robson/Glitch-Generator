@@ -154,6 +154,8 @@
                 {
                     this.formBitmap = glitch.Method.Invoke(this.formBitmap);
                     amount--;
+                    this.Invalidate();
+                    this.Refresh();
                 }
             }
             while (amount > 0);
@@ -256,5 +258,99 @@
 
             return ret;
         }
+
+        private void browseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.ofd.InitialDirectory = Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar + "Examples";
+            this.ofd.Filter = "Images|*.png;*.jpg;*.jpeg;*.gif;*.bmp";
+            this.ofd.FileName = string.Empty;
+            this.ofd.ShowDialog();
+            if (File.Exists(this.ofd.FileName))
+            {
+                this.filenames.Clear();
+                if (this.formBitmap != null)
+                {
+                    this.formBitmap.Dispose();
+                }
+
+                this.formBitmap = new Bitmap(this.ofd.FileName);
+                var filename = Path.GetTempFileName() + ".png";
+                this.formBitmap.Save(filename);
+                this.filenames.Push(filename);
+                this.formGraphics = Graphics.FromImage(this.formBitmap);
+                this.Invalidate();
+                foreach (ToolStripMenuItem menu in this.MainMenuStrip.Items)
+                {
+                    menu.Enabled = true;
+                }
+                this.UndoToolStripMenuItem.Enabled = false;
+            }
+        } 
+
+        private void smallToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateRandomGeometricImage(500, 500, 200);
+        }
+
+        private void mediumToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateRandomGeometricImage(1000, 1000, 300);
+        }
+
+        private void largeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateRandomGeometricImage(1920, 1080, 400);
+        }
+
+        private void CreateRandomGeometricImage(int width, int height, int max)
+        {
+            this.formBitmap = new Bitmap(width, height);
+            var filename = Path.GetTempFileName() + ".png";
+            this.formBitmap.Save(filename);
+            this.filenames.Push(filename);
+            this.formGraphics = Graphics.FromImage(this.formBitmap);
+            this.formGraphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            for (int i = 0; i < 2000; i++)
+            {
+                var colour = Color.FromArgb(RNG.Random.Next(255), RNG.Random.Next(255), RNG.Random.Next(255), RNG.Random.Next(255));
+                int sizeX = RNG.Random.Next(25, max), sizeY = RNG.Random.Next(25, max);
+                int x = RNG.Random.Next(width), y = RNG.Random.Next(height);
+                switch (RNG.Random.Next(4))
+                {
+                    case 0:
+                        this.formGraphics.FillEllipse(new SolidBrush(colour), x, y, sizeX, sizeY);
+                        break;
+
+                    case 1:
+                        this.formGraphics.FillRectangle(new SolidBrush(colour), x - sizeX / 2, y - sizeY / 2, sizeX / 2, sizeY / 2);
+                        break;
+
+                    case 2:
+                        int nx = x + RNG.Random.Next(-max, max), ny = y + RNG.Random.Next(-max, max);
+                        this.formGraphics.DrawLine(new Pen(colour, RNG.Random.Next(1, 20)), x, y, nx, ny);
+                        break;
+
+                    case 3:
+                        var points = new List<Point>();
+                        var amount = RNG.Random.Next(3, 6) * 2;
+                        for (int p = 0; p < amount; p++)
+                        {
+                            points.Add(new Point(x + RNG.Random.Next(-max, max), y + RNG.Random.Next(-max, max)));
+                        }
+
+                        this.formGraphics.FillPolygon(new SolidBrush(colour), points.ToArray());
+                        break;
+                }
+            }
+
+            this.Invalidate();
+            foreach (ToolStripMenuItem menu in this.MainMenuStrip.Items)
+            {
+                menu.Enabled = true;
+            }
+            this.UndoToolStripMenuItem.Enabled = false;
+        }
+
     }
 }
