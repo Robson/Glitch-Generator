@@ -326,11 +326,12 @@
         internal static Bitmap HueGradient(Bitmap bitmap)
         {
             var graphics = Graphics.FromImage(bitmap);
+            var offset = RNG.Random.Next(360);
             for (int y = 0; y < bitmap.Height; y++)
             {
                 for (int x = 0; x < bitmap.Width; x++)
                 {
-                    var randomHue = (int)(360f * ((float)x / (float)bitmap.Width));
+                    var randomHue = (offset + (int)(360f * ((float)x / (float)bitmap.Width))) % 360;
 
                     var colour = bitmap.GetPixel(x, y);
                     var hsb = ColourConverter.RGBtoHSB(new ColourConverter.RGB() { R = colour.R, G = colour.G, B = colour.B });
