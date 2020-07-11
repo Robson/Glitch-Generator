@@ -151,12 +151,11 @@
         }
 
         internal static Bitmap FileCorruptBlank(Bitmap bitmap)
-        {
-            Thread.Sleep(500);
+        {            
             var duplicate = (Image)bitmap.Clone();
             var filename = Path.GetTempFileName() + RNG.Random.Next(10000) + ".png";
             duplicate.Save(filename);
-
+            Thread.Sleep(500);
             using (var stream = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite))
             {
                 int blankLength = RNG.Random.Next(1, 10);
@@ -174,12 +173,11 @@
         }
 
         internal static Bitmap FileCorruptDelete(Bitmap bitmap)
-        {
-            Thread.Sleep(500);
+        {            
             var duplicate = (Image)bitmap.Clone();
             var filename = Path.GetTempFileName() + ".png";
             duplicate.Save(filename);
-
+            Thread.Sleep(500);
             using (var stream = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite))
             {
                 int skipLength = RNG.Random.Next(1, 10);
@@ -208,12 +206,11 @@
         }
 
         internal static Bitmap FileCorruptNoise(Bitmap bitmap)
-        {
-            Thread.Sleep(500);
+        {            
             var duplicate = (Image)bitmap.Clone();
             var filename = Path.GetTempFileName() + ".png";
             duplicate.Save(filename);
-
+            Thread.Sleep(500);
             using (var stream = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite))
             {
                 int noiseLength = RNG.Random.Next(1, 10);
