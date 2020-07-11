@@ -328,7 +328,7 @@
 
                     case 2:
                         int nx = x + RNG.Random.Next(-max, max), ny = y + RNG.Random.Next(-max, max);
-                        this.formGraphics.DrawLine(new Pen(colour, RNG.Random.Next(1, 20)), x, y, nx, ny);
+                        this.formGraphics.DrawLine(new Pen(colour, RNG.Random.Next(1, 30)), x, y, nx, ny);
                         break;
 
                     case 3:
