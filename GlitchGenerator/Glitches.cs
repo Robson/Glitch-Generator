@@ -323,15 +323,40 @@
             return HorizontalFrozenWaves(bitmap, isSmooth: true);
         }
 
-        internal static Bitmap HueGradient(Bitmap bitmap)
+        internal static Bitmap HueGradientRainbow(Bitmap bitmap)
         {
             var graphics = Graphics.FromImage(bitmap);
             var offset = RNG.Random.Next(360);
+            var direction = RNG.Random.NextDouble() > 0.5 ? 1 : -1;
             for (int y = 0; y < bitmap.Height; y++)
             {
                 for (int x = 0; x < bitmap.Width; x++)
                 {
-                    var randomHue = (offset + (int)(360f * ((float)x / (float)bitmap.Width))) % 360;
+                    var randomHue = (offset + (direction * (int)(360f * ((float)x / (float)bitmap.Width)))) % 360;
+
+                    var colour = bitmap.GetPixel(x, y);
+                    var hsb = ColourConverter.RGBtoHSB(new ColourConverter.RGB() { R = colour.R, G = colour.G, B = colour.B });
+                    hsb.H = randomHue;
+                    var rgb = ColourConverter.HSBtoRGB(hsb);
+                    var newColour = Color.FromArgb(rgb.R, rgb.G, rgb.B);
+                    graphics.FillRectangle(new SolidBrush(newColour), new Rectangle(x, y, 1, 1));
+                }
+            }
+
+            return bitmap;
+        }
+
+        internal static Bitmap HueGradientRandom(Bitmap bitmap)
+        {
+            var graphics = Graphics.FromImage(bitmap);
+            var start = RNG.Random.Next(360);
+            var amount = RNG.Random.Next(360);
+            var direction = RNG.Random.NextDouble() > 0.5 ? 1 : -1;
+            for (int y = 0; y < bitmap.Height; y++)
+            {
+                for (int x = 0; x < bitmap.Width; x++)
+                {
+                    var randomHue = (360 + start + (direction * (int)(amount * ((float)x / (float)bitmap.Width)))) % 360;
 
                     var colour = bitmap.GetPixel(x, y);
                     var hsb = ColourConverter.RGBtoHSB(new ColourConverter.RGB() { R = colour.R, G = colour.G, B = colour.B });
