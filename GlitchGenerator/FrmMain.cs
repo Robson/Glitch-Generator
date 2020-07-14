@@ -259,7 +259,7 @@
             return ret;
         }
 
-        private void browseToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BrowseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.ofd.InitialDirectory = Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar + "Examples";
             this.ofd.Filter = "Images|*.png;*.jpg;*.jpeg;*.gif;*.bmp";
