@@ -4,6 +4,7 @@
     using System.Drawing;
     using System.Drawing.Imaging;
     using System.IO;
+    using System.Linq;
     using System.Threading;
 
     internal static class Glitches
@@ -153,9 +154,8 @@
         internal static Bitmap FileCorruptBlank(Bitmap bitmap)
         {            
             var duplicate = (Image)bitmap.Clone();
-            var filename = Path.GetTempFileName() + RNG.Random.Next(10000) + ".png";
+            var filename = CreateRandomTemporaryFilename();
             duplicate.Save(filename);
-            Thread.Sleep(500);
             using (var stream = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite))
             {
                 int blankLength = RNG.Random.Next(1, 10);
@@ -167,17 +167,20 @@
                     stream.WriteByte(0x00);
                 }
             }
+                        
+            var input = (Bitmap)Image.FromFile(filename);
+            var output = new Bitmap(bitmap.Width, bitmap.Height);
+            var graphics = Graphics.FromImage(output);
+            graphics.DrawImage(input, 0, 0, bitmap.Width, bitmap.Height);
 
-            Thread.Sleep(500);
-            return (Bitmap)Image.FromFile(filename);
+            return output;
         }
 
         internal static Bitmap FileCorruptDelete(Bitmap bitmap)
         {            
             var duplicate = (Image)bitmap.Clone();
-            var filename = Path.GetTempFileName() + ".png";
+            var filename = CreateRandomTemporaryFilename();
             duplicate.Save(filename);
-            Thread.Sleep(500);
             using (var stream = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite))
             {
                 int skipLength = RNG.Random.Next(1, 10);
@@ -201,16 +204,19 @@
                 stream.SetLength(stream.Position); // trim the file
             }
 
-            Thread.Sleep(500);
-            return (Bitmap)Image.FromFile(filename);
+            var input = (Bitmap)Image.FromFile(filename);
+            var output = new Bitmap(bitmap.Width, bitmap.Height);
+            var graphics = Graphics.FromImage(output);
+            graphics.DrawImage(input, 0, 0, bitmap.Width, bitmap.Height);
+
+            return output;
         }
 
         internal static Bitmap FileCorruptNoise(Bitmap bitmap)
         {            
             var duplicate = (Image)bitmap.Clone();
-            var filename = Path.GetTempFileName() + ".png";
+            var filename = CreateRandomTemporaryFilename();
             duplicate.Save(filename);
-            Thread.Sleep(500);
             using (var stream = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite))
             {
                 int noiseLength = RNG.Random.Next(1, 10);
@@ -226,8 +232,12 @@
                 }
             }
 
-            Thread.Sleep(500);
-            return (Bitmap)Image.FromFile(filename);
+            var input = (Bitmap)Image.FromFile(filename);
+            var output = new Bitmap(bitmap.Width, bitmap.Height);
+            var graphics = Graphics.FromImage(output);
+            graphics.DrawImage(input, 0, 0, bitmap.Width, bitmap.Height);
+
+            return output;
         }
 
         internal static Bitmap HorizontalMirror(Bitmap bitmap)
@@ -580,6 +590,19 @@
             }
 
             return null;
+        }
+
+        internal static string CreateRandomTemporaryFilename()
+        {
+            var folder = Path.GetTempPath() + Path.DirectorySeparatorChar;
+            var chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+            var random = "gg_tmp_";
+            do
+            {
+                random += string.Concat(chars.OrderBy(x => RNG.Random.NextDouble()).Take(8));
+            } while (File.Exists(folder + random + ".png"));
+
+            return folder + random + ".png";
         }
 
         private static Bitmap HorizontalFrozenWaves(Bitmap bitmap, bool isSmooth)
