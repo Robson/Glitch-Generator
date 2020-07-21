@@ -6,6 +6,8 @@
     using System.Drawing;
     using System.Drawing.Imaging;
     using System.IO;
+    using System.Linq;
+    using System.Threading;
     using System.Windows.Forms;
 
     internal partial class FrmDisplay : Form
@@ -123,7 +125,7 @@
         private void RandomOneToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Text = "Working on it...";
-            this.ApplyRandomGlitch(1, isAllowingCompression: true);
+            this.ApplyRandomGlitch(1, isAllowingCompression: true, isSafe:false);
             this.SaveLatestImage();
             this.Text = this.MakeVersionNumber();
         }
@@ -131,7 +133,7 @@
         private void RandomMultipleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Text = "Working on it...";
-            this.ApplyRandomGlitch(RNG.Random.Next(3, 8), isAllowingCompression: true);
+            this.ApplyRandomGlitch(RNG.Random.Next(3, 8), isAllowingCompression: true, isSafe: false);
             this.SaveLatestImage();
             this.Text = this.MakeVersionNumber();
         }
@@ -139,12 +141,12 @@
         private void RandomMultipleNoCompressionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Text = "Working on it...";
-            this.ApplyRandomGlitch(RNG.Random.Next(3, 8), isAllowingCompression: false);
+            this.ApplyRandomGlitch(RNG.Random.Next(3, 8), isAllowingCompression: false, isSafe: false);
             this.SaveLatestImage();
             this.Text = this.MakeVersionNumber();
         }
 
-        private void ApplyRandomGlitch(int amount, bool isAllowingCompression)
+        private void ApplyRandomGlitch(int amount, bool isAllowingCompression, bool isSafe, bool isUpdating=true)
         {
             var glitches = Actions.GetAllGlitches();
             do
@@ -152,10 +154,17 @@
                 var glitch = glitches[RNG.Random.Next(glitches.Count)];
                 if (!glitch.Parent.Contains("Compress") || isAllowingCompression)
                 {
-                    this.formBitmap = glitch.Method.Invoke(this.formBitmap);
-                    amount--;
-                    this.Invalidate();
-                    this.Refresh();
+                    if (!glitch.Parent.Contains("Corrupt") || !isSafe)
+                    {
+                        Console.WriteLine(glitch.Parent + " > " + glitch.Name);
+                        this.formBitmap = glitch.Method.Invoke(this.formBitmap);
+                        amount--;
+                        if (isUpdating)
+                        {
+                            this.Invalidate();
+                            this.Refresh();
+                        }
+                    }                    
                 }
             }
             while (amount > 0);
@@ -163,19 +172,18 @@
 
         private void RandomToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            var amount = 10;
             var collageBitmap = new Bitmap(this.formBitmap.Width * 3, this.formBitmap.Height * 3);
             var collageGraphics = Graphics.FromImage(collageBitmap);
             var folderName = Path.GetTempFileName() + "x" + Path.DirectorySeparatorChar;
             Directory.CreateDirectory(folderName);
             var originalImage = (Bitmap)this.formBitmap.Clone();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < amount; i++)
             {
-                this.Text = "Creating Image " + (i + 1) + " of 10...";
-                GC.Collect();
-                GC.GetTotalMemory(forceFullCollection: true);
+                this.Text = "Creating Image " + (i + 1) + " of " + amount.ToString() + "...";
                 this.formBitmap = (Bitmap)originalImage.Clone();
                 this.formGraphics = Graphics.FromImage(this.formBitmap);
-                this.ApplyRandomGlitch(RNG.Random.Next(3, 10), isAllowingCompression: false);
+                this.ApplyRandomGlitch(RNG.Random.Next(3, 10), isAllowingCompression: false, isSafe: false);
                 if (i < 10)
                 {
                     var x = i % 3;
@@ -190,9 +198,9 @@
                 this.formBitmap.Save(folderName + string.Format("{0:00}.png", i), Glitches.GetEncoder(ImageFormat.Png), null);
                 this.formBitmap.Dispose();
                 this.formGraphics.Dispose();
-                this.formBitmap = new Bitmap(100, 100);
-                this.formGraphics = Graphics.FromImage(this.formBitmap);
                 imageCopy.Dispose();
+                GC.Collect();
+                GC.GetTotalMemory(forceFullCollection: true);
             }
 
             collageBitmap.Save(folderName + "Collage.png", Glitches.GetEncoder(ImageFormat.Png), null);
@@ -398,6 +406,39 @@
                 menu.Enabled = true;
             }
             this.UndoToolStripMenuItem.Enabled = false;
+        }
+
+        private void CorruptFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ofd.Multiselect = true;
+            ofd.Filter = "Images|*.png;*.jpg;*.jpeg;*.gif;*.bmp";
+            ofd.FileName = string.Empty;
+            ofd.ShowDialog();
+
+            if (ofd.FileNames.Count() > 0)
+            {
+                var newFolder = Path.GetDirectoryName(ofd.FileNames[0]) + Path.DirectorySeparatorChar + "Glitched " + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
+                Directory.CreateDirectory(newFolder);
+                for (int i = 0; i < ofd.FileNames.Count(); i++)
+                {
+                    this.Text = "Processing " + (i + 1).ToString() + " of " + ofd.FileNames.Count();
+                    Console.WriteLine(this.Text);
+                    var temp = new Bitmap(ofd.FileNames[i]);
+                    this.formBitmap = new Bitmap(temp.Width, temp.Height);
+                    this.formGraphics = Graphics.FromImage(this.formBitmap);
+                    this.formGraphics.DrawImage(temp, 0, 0, this.formBitmap.Width, this.formBitmap.Height);
+                    this.ApplyRandomGlitch(RNG.Random.Next(2, 5), isAllowingCompression: false, isSafe: false, isUpdating: false);
+                    this.formBitmap.Save(newFolder + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(ofd.FileNames[i]) + ".png");
+                    temp.Dispose();
+                    this.formGraphics.Dispose();
+                    this.formBitmap.Dispose();                    
+                    GC.GetTotalMemory(true);
+                }
+
+                Process.Start(newFolder);
+            }
+
+            this.Text = MakeVersionNumber();            
         }
     }
 }
