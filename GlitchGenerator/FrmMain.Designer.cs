@@ -31,17 +31,23 @@
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.browseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createRandomImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.randomGeometricToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SmallGeometricToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MediumGeometricToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LargeGeometricToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.randomImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SmallImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MediumImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LargeImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.corruptFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UndoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.randomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.randomOneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.randomMultipleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.randomMultipleNoCompressionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.randomToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.greyscaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,9 +55,6 @@
             this.randomToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.ofd = new System.Windows.Forms.OpenFileDialog();
             this.sfd = new System.Windows.Forms.SaveFileDialog();
-            this.SmallImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MediumImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.LargeImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,8 +75,9 @@
             // 
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.browseToolStripMenuItem,
-            this.randomGeometricToolStripMenuItem,
-            this.randomImageToolStripMenuItem});
+            this.createRandomImageToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.corruptFilesToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.newToolStripMenuItem.Text = "New";
@@ -81,9 +85,18 @@
             // browseToolStripMenuItem
             // 
             this.browseToolStripMenuItem.Name = "browseToolStripMenuItem";
-            this.browseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.browseToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.browseToolStripMenuItem.Text = "Browse...";
             this.browseToolStripMenuItem.Click += new System.EventHandler(this.BrowseToolStripMenuItem_Click);
+            // 
+            // createRandomImageToolStripMenuItem
+            // 
+            this.createRandomImageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.randomGeometricToolStripMenuItem,
+            this.randomImageToolStripMenuItem});
+            this.createRandomImageToolStripMenuItem.Name = "createRandomImageToolStripMenuItem";
+            this.createRandomImageToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.createRandomImageToolStripMenuItem.Text = "Create Random Image";
             // 
             // randomGeometricToolStripMenuItem
             // 
@@ -92,8 +105,8 @@
             this.MediumGeometricToolStripMenuItem,
             this.LargeGeometricToolStripMenuItem});
             this.randomGeometricToolStripMenuItem.Name = "randomGeometricToolStripMenuItem";
-            this.randomGeometricToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.randomGeometricToolStripMenuItem.Text = "Random Geometric";
+            this.randomGeometricToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.randomGeometricToolStripMenuItem.Text = "From Geometric Shapes";
             // 
             // SmallGeometricToolStripMenuItem
             // 
@@ -123,8 +136,41 @@
             this.MediumImagesToolStripMenuItem,
             this.LargeImagesToolStripMenuItem});
             this.randomImageToolStripMenuItem.Name = "randomImageToolStripMenuItem";
-            this.randomImageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.randomImageToolStripMenuItem.Text = "Random Image";
+            this.randomImageToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.randomImageToolStripMenuItem.Text = "From Images";
+            // 
+            // SmallImagesToolStripMenuItem
+            // 
+            this.SmallImagesToolStripMenuItem.Name = "SmallImagesToolStripMenuItem";
+            this.SmallImagesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SmallImagesToolStripMenuItem.Text = "Small";
+            this.SmallImagesToolStripMenuItem.Click += new System.EventHandler(this.SmallImagesToolStripMenuItem_Click);
+            // 
+            // MediumImagesToolStripMenuItem
+            // 
+            this.MediumImagesToolStripMenuItem.Name = "MediumImagesToolStripMenuItem";
+            this.MediumImagesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.MediumImagesToolStripMenuItem.Text = "Medium";
+            this.MediumImagesToolStripMenuItem.Click += new System.EventHandler(this.MediumImagesToolStripMenuItem_Click);
+            // 
+            // LargeImagesToolStripMenuItem
+            // 
+            this.LargeImagesToolStripMenuItem.Name = "LargeImagesToolStripMenuItem";
+            this.LargeImagesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.LargeImagesToolStripMenuItem.Text = "Large";
+            this.LargeImagesToolStripMenuItem.Click += new System.EventHandler(this.LargeImagesToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(199, 6);
+            // 
+            // corruptFilesToolStripMenuItem
+            // 
+            this.corruptFilesToolStripMenuItem.Name = "corruptFilesToolStripMenuItem";
+            this.corruptFilesToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.corruptFilesToolStripMenuItem.Text = "Glitch Multiple Images...";
+            this.corruptFilesToolStripMenuItem.Click += new System.EventHandler(this.CorruptFolderToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -146,8 +192,8 @@
             // 
             this.randomToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.randomOneToolStripMenuItem,
-            this.randomMultipleToolStripMenuItem,
             this.randomMultipleNoCompressionToolStripMenuItem,
+            this.toolStripMenuItem3,
             this.randomToolStripMenuItem1});
             this.randomToolStripMenuItem.Enabled = false;
             this.randomToolStripMenuItem.Name = "randomToolStripMenuItem";
@@ -157,29 +203,27 @@
             // randomOneToolStripMenuItem
             // 
             this.randomOneToolStripMenuItem.Name = "randomOneToolStripMenuItem";
-            this.randomOneToolStripMenuItem.Size = new System.Drawing.Size(349, 22);
+            this.randomOneToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
             this.randomOneToolStripMenuItem.Text = "One Glitch";
             this.randomOneToolStripMenuItem.Click += new System.EventHandler(this.RandomOneToolStripMenuItem_Click);
-            // 
-            // randomMultipleToolStripMenuItem
-            // 
-            this.randomMultipleToolStripMenuItem.Name = "randomMultipleToolStripMenuItem";
-            this.randomMultipleToolStripMenuItem.Size = new System.Drawing.Size(349, 22);
-            this.randomMultipleToolStripMenuItem.Text = "Multiple Glitches";
-            this.randomMultipleToolStripMenuItem.Click += new System.EventHandler(this.RandomMultipleToolStripMenuItem_Click);
             // 
             // randomMultipleNoCompressionToolStripMenuItem
             // 
             this.randomMultipleNoCompressionToolStripMenuItem.Name = "randomMultipleNoCompressionToolStripMenuItem";
-            this.randomMultipleNoCompressionToolStripMenuItem.Size = new System.Drawing.Size(349, 22);
-            this.randomMultipleNoCompressionToolStripMenuItem.Text = "Multiple Glitches, No Compression";
+            this.randomMultipleNoCompressionToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
+            this.randomMultipleNoCompressionToolStripMenuItem.Text = "Multiple Glitches";
             this.randomMultipleNoCompressionToolStripMenuItem.Click += new System.EventHandler(this.RandomMultipleNoCompressionToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(276, 6);
             // 
             // randomToolStripMenuItem1
             // 
             this.randomToolStripMenuItem1.Name = "randomToolStripMenuItem1";
-            this.randomToolStripMenuItem1.Size = new System.Drawing.Size(349, 22);
-            this.randomToolStripMenuItem1.Text = "Multiple Glitches, No Compression, Multiple Images";
+            this.randomToolStripMenuItem1.Size = new System.Drawing.Size(279, 22);
+            this.randomToolStripMenuItem1.Text = "Multiple Images With Multiple Glitches";
             this.randomToolStripMenuItem1.Click += new System.EventHandler(this.RandomToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem1
@@ -206,27 +250,6 @@
             // ofd
             // 
             this.ofd.FileName = "openFileDialog1";
-            // 
-            // SmallImagesToolStripMenuItem
-            // 
-            this.SmallImagesToolStripMenuItem.Name = "SmallImagesToolStripMenuItem";
-            this.SmallImagesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.SmallImagesToolStripMenuItem.Text = "Small";
-            this.SmallImagesToolStripMenuItem.Click += new System.EventHandler(this.SmallImagesToolStripMenuItem_Click);
-            // 
-            // MediumImagesToolStripMenuItem
-            // 
-            this.MediumImagesToolStripMenuItem.Name = "MediumImagesToolStripMenuItem";
-            this.MediumImagesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.MediumImagesToolStripMenuItem.Text = "Medium";
-            this.MediumImagesToolStripMenuItem.Click += new System.EventHandler(this.MediumImagesToolStripMenuItem_Click);
-            // 
-            // LargeImagesToolStripMenuItem
-            // 
-            this.LargeImagesToolStripMenuItem.Name = "LargeImagesToolStripMenuItem";
-            this.LargeImagesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.LargeImagesToolStripMenuItem.Text = "Large";
-            this.LargeImagesToolStripMenuItem.Click += new System.EventHandler(this.LargeImagesToolStripMenuItem_Click);
             // 
             // FrmDisplay
             // 
@@ -257,7 +280,6 @@
         private System.Windows.Forms.ToolStripMenuItem randomToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem randomToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem randomOneToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem randomMultipleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem randomMultipleNoCompressionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem randomToolStripMenuItem1;
@@ -265,6 +287,8 @@
         private System.Windows.Forms.SaveFileDialog sfd;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem browseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem corruptFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createRandomImageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem randomGeometricToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SmallGeometricToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MediumGeometricToolStripMenuItem;
@@ -273,6 +297,8 @@
         private System.Windows.Forms.ToolStripMenuItem SmallImagesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MediumImagesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem LargeImagesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
     }
 }
 
