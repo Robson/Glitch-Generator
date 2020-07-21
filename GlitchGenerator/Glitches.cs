@@ -259,7 +259,7 @@
             return bitmap;
         }
 
-        internal static Bitmap HorizontalNoise(Bitmap bitmap)
+        internal static Bitmap HorizontalColourNoise(Bitmap bitmap)
         {
             var graphics = Graphics.FromImage(bitmap);
             var height = RNG.Random.Next(5, 100);
@@ -272,6 +272,50 @@
                     var colour = Color.FromArgb(RNG.Random.Next(255), RNG.Random.Next(255), RNG.Random.Next(255));
                     graphics.FillRectangle(new SolidBrush(colour), new Rectangle(x, y, 1, 1));
                 }
+            }
+
+            return bitmap;
+        }
+
+        internal static Bitmap HorizontalBinaryNoise(Bitmap bitmap)
+        {
+            var graphics = Graphics.FromImage(bitmap);
+            var height = 16 * RNG.Random.Next(2, 6);
+            var startY = RNG.Random.Next(bitmap.Height - height);
+
+            graphics.FillRectangle(Brushes.White, 0, startY, bitmap.Width, height);
+
+            for (int x = 1; x <= bitmap.Width; x+=32)
+            {
+                var size = new[] { 4, 8, 16 }[RNG.Random.Next(3)];
+                var isBlack = RNG.Random.NextDouble() > 0.5;
+                var isStretched = RNG.Random.NextDouble() > 0.5;
+                if (isStretched)
+                {
+                    for (int b = 0; b < height; b+=size)
+                    {
+                        isBlack = !isBlack;
+                        if (isBlack)
+                        {
+                            graphics.FillRectangle(Brushes.Black, x, startY + b, 32, size);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int a = 0; a < 32; a += size)
+                    {
+                        isBlack = !isBlack;
+                        for (int b = 0; b < height; b += size)
+                        {
+                            isBlack = !isBlack;
+                            if (isBlack)
+                            {
+                                graphics.FillRectangle(Brushes.Black, a + x, startY + b, size, size);
+                            }
+                        }
+                    }
+                }                                        
             }
 
             return bitmap;
