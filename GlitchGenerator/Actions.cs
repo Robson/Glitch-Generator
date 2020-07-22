@@ -31,6 +31,7 @@
                 new Glitch("Horizontal", "Mirror", Glitches.HorizontalMirror),
                 new Glitch("Horizontal", "Noise, Binary", Glitches.HorizontalBinaryNoise),
                 new Glitch("Horizontal", "Noise, Colour", Glitches.HorizontalColourNoise),
+                new Glitch("Horizontal", "Noise, Monochrome", Glitches.HorizontalMonochromeNoise),
                 new Glitch("Horizontal", "Offset", Glitches.HorizontalOffset),
                 new Glitch("Horizontal Freeze", "Fixed", Glitches.HorizontalFreezeFixed),
                 new Glitch("Horizontal Freeze", "Random", Glitches.HorizontalFreezeRandom),
