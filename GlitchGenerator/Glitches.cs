@@ -261,20 +261,16 @@
 
         internal static Bitmap HorizontalColourNoise(Bitmap bitmap)
         {
-            var graphics = Graphics.FromImage(bitmap);
             var height = RNG.Random.Next(5, 100);
             var startY = RNG.Random.Next(bitmap.Height - height);
+            return GenerateColourNoiseAtLocation(bitmap, new Rectangle(0, startY, bitmap.Width, height));
+        }
 
-            for (int y = startY; y < startY + height; y++)
-            {
-                for (int x = 1; x <= bitmap.Width; x++)
-                {
-                    var colour = Color.FromArgb(RNG.Random.Next(255), RNG.Random.Next(255), RNG.Random.Next(255));
-                    graphics.FillRectangle(new SolidBrush(colour), new Rectangle(x, y, 1, 1));
-                }
-            }
-
-            return bitmap;
+        internal static Bitmap HorizontalMonochromeNoise(Bitmap bitmap)
+        {
+            var height = RNG.Random.Next(5, 100);
+            var startY = RNG.Random.Next(bitmap.Height - height);
+            return GenerateMonochromeNoiseAtLocation(bitmap, new Rectangle(0, startY, bitmap.Width, height));
         }
 
         internal static Bitmap HorizontalBinaryNoise(Bitmap bitmap)
@@ -282,43 +278,7 @@
             var graphics = Graphics.FromImage(bitmap);
             var height = 16 * RNG.Random.Next(2, 6);
             var startY = RNG.Random.Next(bitmap.Height - height);
-
-            graphics.FillRectangle(Brushes.White, 0, startY, bitmap.Width, height);
-
-            for (int x = 1; x <= bitmap.Width; x+=32)
-            {
-                var size = new[] { 4, 8, 16 }[RNG.Random.Next(3)];
-                var isBlack = RNG.Random.NextDouble() > 0.5;
-                var isStretched = RNG.Random.NextDouble() > 0.5;
-                if (isStretched)
-                {
-                    for (int b = 0; b < height; b+=size)
-                    {
-                        isBlack = !isBlack;
-                        if (isBlack)
-                        {
-                            graphics.FillRectangle(Brushes.Black, x, startY + b, 32, size);
-                        }
-                    }
-                }
-                else
-                {
-                    for (int a = 0; a < 32; a += size)
-                    {
-                        isBlack = !isBlack;
-                        for (int b = 0; b < height; b += size)
-                        {
-                            isBlack = !isBlack;
-                            if (isBlack)
-                            {
-                                graphics.FillRectangle(Brushes.Black, a + x, startY + b, size, size);
-                            }
-                        }
-                    }
-                }                                        
-            }
-
-            return bitmap;
+            return GenerateBinaryNoiseAtLocation(bitmap, new Rectangle(0, startY, bitmap.Width, height));
         }
 
         internal static Bitmap HorizontalOffset(Bitmap bitmap)
@@ -647,6 +607,81 @@
             } while (File.Exists(folder + random + ".png"));
 
             return folder + random + ".png";
+        }
+
+        internal static Bitmap GenerateColourNoiseAtLocation(Bitmap bitmap, Rectangle rect)
+        {
+            var graphics = Graphics.FromImage(bitmap);
+
+            for (int y = rect.Y; y < rect.Y + rect.Height; y++)
+            {
+                for (int x = rect.X; x <= rect.X + rect.Width; x++)
+                {
+                    var colour = Color.FromArgb(RNG.Random.Next(255), RNG.Random.Next(255), RNG.Random.Next(255));
+                    graphics.FillRectangle(new SolidBrush(colour), new Rectangle(x, y, 1, 1));
+                }
+            }
+
+            return bitmap;
+        }
+
+        internal static Bitmap GenerateMonochromeNoiseAtLocation(Bitmap bitmap, Rectangle rect)
+        {
+            var graphics = Graphics.FromImage(bitmap);
+
+            for (int y = rect.Y; y < rect.Y + rect.Height; y++)
+            {
+                for (int x = rect.X; x <= rect.X + rect.Width; x++)
+                {
+                    var colour = RNG.Random.NextDouble() > 0.5 ? Color.Black : Color.White;
+                    graphics.FillRectangle(new SolidBrush(colour), new Rectangle(x, y, 1, 1));
+                }
+            }
+
+            return bitmap;
+        }
+
+        internal static Bitmap GenerateBinaryNoiseAtLocation(Bitmap bitmap, Rectangle rect)
+        {
+            var graphics = Graphics.FromImage(bitmap);
+            graphics.FillRectangle(Brushes.White, rect.X, rect.Y, rect.Width, rect.Height);
+            for (int x = 0; x < bitmap.Width; )
+            {
+                var across = 32 * RNG.Random.Next(1, 3);
+                var size = new[] { 4, 8, 16 }[RNG.Random.Next(3)];
+                var isBlack = RNG.Random.NextDouble() > 0.5;
+                var isStretched = RNG.Random.NextDouble() > 0.5;
+                if (isStretched)
+                {
+                    for (int b = 0; b < rect.Height; b += size)
+                    {
+                        isBlack = !isBlack;
+                        if (isBlack)
+                        {
+                            graphics.FillRectangle(Brushes.Black, x, rect.Y + b, across, size);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int a = 0; a < across; a += size)
+                    {
+                        isBlack = !isBlack;
+                        for (int b = 0; b < rect.Height; b += size)
+                        {
+                            isBlack = !isBlack;
+                            if (isBlack)
+                            {
+                                graphics.FillRectangle(Brushes.Black, a + x, rect.Y + b, size, size);
+                            }
+                        }
+                    }
+                }
+
+                x += across;
+            }
+
+            return bitmap;
         }
 
         private static Bitmap HorizontalFrozenWaves(Bitmap bitmap, bool isSmooth)
