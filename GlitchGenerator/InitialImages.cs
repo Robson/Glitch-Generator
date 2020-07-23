@@ -16,6 +16,7 @@
                 new InitialImageNoiseBinary(),
                 new InitialImageNoiseColour(),
                 new InitialImageNoiseMonochrome(),
+                new InitialImageNoiseMonochromeSquares(),
                 new InitialImageShapes(),
             };
         }
@@ -119,7 +120,7 @@
         {
             public string GetName()
             {
-                return "Noise, Colour";
+                return "Noise, Pixels, Colour";
             }
 
             public bool IsPossible()
@@ -137,7 +138,7 @@
         {
             public string GetName()
             {
-                return "Noise, Monochrome";
+                return "Noise, Pixels, Monochrome";
             }
 
             public bool IsPossible()
@@ -148,6 +149,32 @@
             public Bitmap GenerateImage(int width, int height, bool isPreview)
             {
                 return Glitches.GenerateMonochromeNoiseAtLocation(new Bitmap(width, height), new Rectangle(0, 0, width, height));
+            }
+        }
+
+        internal class InitialImageNoiseMonochromeSquares : IInitialImage
+        {
+            public string GetName()
+            {
+                return "Noise, Squares, Monochrome";
+            }
+
+            public bool IsPossible()
+            {
+                return true;
+            }
+
+            public Bitmap GenerateImage(int width, int height, bool isPreview)
+            {
+                var bitmap = new Bitmap(width, height);
+                for (int y = 0; y < height;)
+                {
+                    var h = 16 * (isPreview ? RNG.Random.Next(2, 4) : RNG.Random.Next(2, 6));
+                    Glitches.GenerateMonochromeSquareNoiseAtLocation(bitmap, new Rectangle(0, y, width, h));
+                    y += h;
+                }
+
+                return bitmap;
             }
         }
 
