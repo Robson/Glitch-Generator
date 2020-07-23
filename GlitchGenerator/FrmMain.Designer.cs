@@ -82,14 +82,14 @@
             // 
             this.browseToolStripMenuItem.Name = "browseToolStripMenuItem";
             this.browseToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.browseToolStripMenuItem.Text = "Browse...";
+            this.browseToolStripMenuItem.Text = "Open Image...";
             this.browseToolStripMenuItem.Click += new System.EventHandler(this.BrowseToolStripMenuItem_Click);
             // 
             // GenerateToolStripMenuItem
             // 
             this.GenerateToolStripMenuItem.Name = "GenerateToolStripMenuItem";
             this.GenerateToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.GenerateToolStripMenuItem.Text = "Generate...";
+            this.GenerateToolStripMenuItem.Text = "Generate Image...";
             this.GenerateToolStripMenuItem.Click += new System.EventHandler(this.GenerateToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
@@ -110,6 +110,7 @@
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Visible = false;
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // UndoToolStripMenuItem
@@ -118,6 +119,7 @@
             this.UndoToolStripMenuItem.Name = "UndoToolStripMenuItem";
             this.UndoToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.UndoToolStripMenuItem.Text = "Undo";
+            this.UndoToolStripMenuItem.Visible = false;
             this.UndoToolStripMenuItem.Click += new System.EventHandler(this.UndoToolStripMenuItem_Click);
             // 
             // randomToolStripMenuItem
@@ -131,31 +133,32 @@
             this.randomToolStripMenuItem.Name = "randomToolStripMenuItem";
             this.randomToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.randomToolStripMenuItem.Text = "Random";
+            this.randomToolStripMenuItem.Visible = false;
             // 
             // randomOneToolStripMenuItem
             // 
             this.randomOneToolStripMenuItem.Name = "randomOneToolStripMenuItem";
-            this.randomOneToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
+            this.randomOneToolStripMenuItem.Size = new System.Drawing.Size(321, 22);
             this.randomOneToolStripMenuItem.Text = "One Glitch";
             this.randomOneToolStripMenuItem.Click += new System.EventHandler(this.RandomOneToolStripMenuItem_Click);
             // 
             // randomMultipleNoCompressionToolStripMenuItem
             // 
             this.randomMultipleNoCompressionToolStripMenuItem.Name = "randomMultipleNoCompressionToolStripMenuItem";
-            this.randomMultipleNoCompressionToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
+            this.randomMultipleNoCompressionToolStripMenuItem.Size = new System.Drawing.Size(321, 22);
             this.randomMultipleNoCompressionToolStripMenuItem.Text = "Multiple Glitches";
             this.randomMultipleNoCompressionToolStripMenuItem.Click += new System.EventHandler(this.RandomMultipleNoCompressionToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(276, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(318, 6);
             // 
             // randomToolStripMenuItem1
             // 
             this.randomToolStripMenuItem1.Name = "randomToolStripMenuItem1";
-            this.randomToolStripMenuItem1.Size = new System.Drawing.Size(279, 22);
-            this.randomToolStripMenuItem1.Text = "Multiple Images With Multiple Glitches";
+            this.randomToolStripMenuItem1.Size = new System.Drawing.Size(321, 22);
+            this.randomToolStripMenuItem1.Text = "Create Multiple Outputs With Multiple Glitches";
             this.randomToolStripMenuItem1.Click += new System.EventHandler(this.RandomToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem1
@@ -163,6 +166,7 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(24, 20);
             this.toolStripMenuItem1.Text = "•";
+            this.toolStripMenuItem1.Visible = false;
             // 
             // randomImageToolStripMenuItem
             // 

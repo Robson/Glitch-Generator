@@ -137,7 +137,7 @@
             this.LblInitialDesign.Name = "LblInitialDesign";
             this.LblInitialDesign.Size = new System.Drawing.Size(117, 30);
             this.LblInitialDesign.TabIndex = 4;
-            this.LblInitialDesign.Text = "Initial Design:";
+            this.LblInitialDesign.Text = "Design:";
             this.LblInitialDesign.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // NumHeight
