@@ -6,15 +6,13 @@
 
     public partial class FrmGenerate : Form
     {
-        internal Bitmap CreatedInitialImage { get; set; }
-
-        private static List<IInitialImage> types = new InitialImages().GetInitialImageTypes();
+        private static readonly List<IInitialImage> InitialImageTypes = new InitialImages().GetInitialImageTypes();
 
         public FrmGenerate()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             
-            foreach (var type in types)
+            foreach (var type in InitialImageTypes)
             {
                 if (type.IsPossible())
                 {
@@ -24,8 +22,10 @@
 
             this.CbInitialDesign.SelectedIndex = RNG.Random.Next(this.CbInitialDesign.Items.Count);
             this.Text = "Generate Image";
-            ShowPreview();
+            this.ShowPreview();
         }
+
+        internal Bitmap CreatedInitialImage { get; set; }
 
         private void BtnGenerate_Click(object sender, System.EventArgs e)
         {
@@ -35,7 +35,7 @@
 
         private void ShowPreview()
         {
-            foreach (var type in types)
+            foreach (var type in InitialImageTypes)
             {
                 if (type.GetName() == this.CbInitialDesign.Text)
                 {
@@ -52,7 +52,7 @@
         private void BtnGenerate_Click_1(object sender, System.EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
-            foreach (var type in types)
+            foreach (var type in InitialImageTypes)
             {
                 if (type.GetName() == this.CbInitialDesign.Text)
                 {

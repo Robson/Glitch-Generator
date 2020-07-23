@@ -275,7 +275,6 @@
 
         internal static Bitmap HorizontalBinaryNoise(Bitmap bitmap)
         {
-            var graphics = Graphics.FromImage(bitmap);
             var height = 16 * RNG.Random.Next(2, 6);
             var startY = RNG.Random.Next(bitmap.Height - height);
             return GenerateBinaryNoiseAtLocation(bitmap, new Rectangle(0, startY, bitmap.Width, height));
@@ -604,7 +603,8 @@
             do
             {
                 random += string.Concat(chars.OrderBy(x => RNG.Random.NextDouble()).Take(8));
-            } while (File.Exists(folder + random + ".png"));
+            }
+            while (File.Exists(folder + random + ".png"));
 
             return folder + random + ".png";
         }
@@ -645,7 +645,7 @@
         {
             var graphics = Graphics.FromImage(bitmap);
             graphics.FillRectangle(Brushes.White, rect.X, rect.Y, rect.Width, rect.Height);
-            for (int x = 0; x < bitmap.Width; )
+            for (int x = 0; x < bitmap.Width; x += 0)
             {
                 var across = 32 * RNG.Random.Next(1, 3);
                 var size = new[] { 4, 8, 16 }[RNG.Random.Next(3)];

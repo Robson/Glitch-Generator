@@ -56,7 +56,7 @@
 
             public Bitmap GenerateImage(int width, int height, bool isPreview)
             {
-                var multiplier = isPreview ? 0.2 : 0.75 + (((width + height / 2) - 500) / 2000);
+                var multiplier = isPreview ? 0.2 : 0.75 + ((((width + height) / 2) - 500) / 2000);
                 var bitmap = new Bitmap(width, height);
                 var graphics = Graphics.FromImage(bitmap);
                 var border = isPreview ? 50 : 300;
@@ -105,7 +105,7 @@
             public Bitmap GenerateImage(int width, int height, bool isPreview)
             {
                 var bitmap = new Bitmap(width, height);
-                for (int y = 0; y < height; )
+                for (int y = 0; y < height; y += 0)
                 {
                     var h = 16 * (isPreview ? RNG.Random.Next(2, 4) : RNG.Random.Next(2, 6));
                     Glitches.GenerateBinaryNoiseAtLocation(bitmap, new Rectangle(0, y, width, h));
@@ -210,7 +210,7 @@
                             break;
 
                         case 1:
-                            graphics.FillRectangle(new SolidBrush(colour), x - sizeX / 2, y - sizeY / 2, sizeX / 2, sizeY / 2);
+                            graphics.FillRectangle(new SolidBrush(colour), x - (sizeX / 2), y - (sizeY / 2), sizeX / 2, sizeY / 2);
                             break;
 
                         case 2:

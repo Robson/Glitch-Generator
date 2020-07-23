@@ -2,7 +2,7 @@
 {
     using System.Drawing;
 
-    interface IInitialImage
+    internal interface IInitialImage
     {
         string GetName();
 

@@ -28,9 +28,12 @@
             {
                 if (glitch.Parent != lastParent)
                 {
-                    menu = new ToolStripMenuItem(glitch.Parent);
-                    menu.Enabled = false;
-                    menu.Visible = false;
+                    menu = new ToolStripMenuItem(glitch.Parent)
+                    {
+                        Enabled = false,
+                        Visible = false
+                    };
+
                     this.MainMenuStrip.Items.Add(menu);
                     lastParent = glitch.Parent;
                 }
@@ -83,7 +86,7 @@
         private void RandomOneToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Text = "Working on it...";
-            this.ApplyRandomGlitch(1, isAllowingCompression: true, isSafe:false);
+            this.ApplyRandomGlitch(1, isAllowingCompression: true, isSafe: false);
             this.SaveLatestImage();
             this.Text = this.MakeVersionNumber();
         }
@@ -104,7 +107,7 @@
             this.Text = this.MakeVersionNumber();
         }
 
-        private void ApplyRandomGlitch(int amount, bool isAllowingCompression, bool isSafe, bool isUpdating=true)
+        private void ApplyRandomGlitch(int amount, bool isAllowingCompression, bool isSafe, bool isUpdating = true)
         {
             var glitches = Actions.GetAllGlitches();
             do
@@ -148,6 +151,7 @@
                     var y = (int)(i / 3);
                     collageGraphics.DrawImage(this.formBitmap, new RectangleF(this.formBitmap.Width * x, this.formBitmap.Height * y, this.formBitmap.Width, this.formBitmap.Height));
                 }
+
                 this.Invalidate();
                 this.Refresh();
                 var imageCopy = new Bitmap(this.formBitmap);
@@ -168,7 +172,7 @@
             this.formBitmap = (Bitmap)originalImage.Clone();
             originalImage.Dispose();
             Process.Start(folderName);
-            this.Text = MakeVersionNumber();
+            this.Text = this.MakeVersionNumber();
             this.Invalidate();
             this.Refresh();
         }
@@ -183,7 +187,7 @@
                 {
                     this.formBitmap.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
                 }
-                else if(sfd.FileName.ToLower().EndsWith("jpg") || sfd.FileName.ToLower().EndsWith("jpeg"))
+                else if (sfd.FileName.ToLower().EndsWith("jpg") || sfd.FileName.ToLower().EndsWith("jpeg"))
                 {
                     this.formBitmap.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
                 }
@@ -285,7 +289,7 @@
                 Process.Start(newFolder);
             }
 
-            this.Text = MakeVersionNumber();            
+            this.Text = this.MakeVersionNumber();            
         }
 
         private void GenerateToolStripMenuItem_Click(object sender, EventArgs e)
