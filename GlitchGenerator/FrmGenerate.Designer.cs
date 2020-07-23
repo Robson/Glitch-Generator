@@ -126,7 +126,7 @@
             this.CbInitialDesign.Location = new System.Drawing.Point(126, 70);
             this.CbInitialDesign.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.CbInitialDesign.Name = "CbInitialDesign";
-            this.CbInitialDesign.Size = new System.Drawing.Size(171, 25);
+            this.CbInitialDesign.Size = new System.Drawing.Size(256, 25);
             this.CbInitialDesign.TabIndex = 5;
             this.CbInitialDesign.SelectedIndexChanged += new System.EventHandler(this.CbInitialDesign_SelectedIndexChanged);
             // 

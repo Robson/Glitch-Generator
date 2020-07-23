@@ -30,7 +30,7 @@
 
             public bool IsPossible()
             {
-                return true;
+                return false;
             }
 
             public Bitmap GenerateImage(int width, int height, bool isPreview)

@@ -262,7 +262,7 @@
             ofd.FileName = string.Empty;
             ofd.ShowDialog();
 
-            if (ofd.FileNames.Count() > 0)
+            if (ofd.FileNames[0] != string.Empty)
             {
                 var newFolder = Path.GetDirectoryName(ofd.FileNames[0]) + Path.DirectorySeparatorChar + "Glitched " + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
                 Directory.CreateDirectory(newFolder);

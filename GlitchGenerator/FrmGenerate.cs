@@ -22,7 +22,7 @@
                 }
             }
 
-            this.CbInitialDesign.SelectedIndex = 0;
+            this.CbInitialDesign.SelectedIndex = RNG.Random.Next(this.CbInitialDesign.Items.Count);
             this.Text = "Generate Image";
             ShowPreview();
         }
