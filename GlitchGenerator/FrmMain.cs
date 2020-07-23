@@ -30,6 +30,7 @@
                 {
                     menu = new ToolStripMenuItem(glitch.Parent);
                     menu.Enabled = false;
+                    menu.Visible = false;
                     this.MainMenuStrip.Items.Add(menu);
                     lastParent = glitch.Parent;
                 }
@@ -64,49 +65,6 @@
 		{
             this.Invalidate();
         }        
-
-        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.ofd.InitialDirectory = Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar + "Examples";
-            this.ofd.Filter = "Images|*.png;*.jpg;*.jpeg;*.gif;*.bmp";
-            this.ofd.FileName = string.Empty;
-            this.ofd.ShowDialog();
-            if (File.Exists(this.ofd.FileName))
-            {
-                this.filenames.Clear();
-                if (this.formBitmap != null)
-                {
-                    this.formBitmap.Dispose();
-                }
-
-                this.formBitmap = new Bitmap(this.ofd.FileName);
-                var filename = Path.GetTempFileName() + ".png";
-                this.formBitmap.Save(filename);
-                this.filenames.Push(filename);
-                this.formGraphics = Graphics.FromImage(this.formBitmap);                
-                this.Invalidate();
-                foreach (ToolStripMenuItem menu in this.MainMenuStrip.Items)
-                {
-                    menu.Enabled = true;
-                }
-                this.UndoToolStripMenuItem.Enabled = false;
-            }
-        }
-
-        private void RandomToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Text = "Working on it...";
-            var glitches = Actions.GetAllGlitches();
-            var amount = RNG.Random.Next(3, 7);
-            for (int i = 0; i < amount; i++)
-            {
-                var glitch = glitches[RNG.Random.Next(glitches.Count)].Method;
-                this.formBitmap = glitch.Invoke(this.formBitmap);
-            }
-
-            this.SaveLatestImage();
-            this.Text = this.MakeVersionNumber();
-        }
 
         private void UndoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -290,7 +248,9 @@
                 foreach (ToolStripMenuItem menu in this.MainMenuStrip.Items)
                 {
                     menu.Enabled = true;
+                    menu.Visible = true;
                 }
+
                 this.UndoToolStripMenuItem.Enabled = false;
             }
         } 
@@ -328,11 +288,6 @@
             this.Text = MakeVersionNumber();            
         }
 
-        private void CreateRandomImageToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void GenerateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var frmGenerate = new FrmGenerate();
@@ -348,7 +303,9 @@
                 foreach (ToolStripMenuItem menu in this.MainMenuStrip.Items)
                 {
                     menu.Enabled = true;
+                    menu.Visible = true;
                 }
+
                 this.UndoToolStripMenuItem.Enabled = false;
             }
         }
