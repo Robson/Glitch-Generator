@@ -684,6 +684,31 @@
             return bitmap;
         }
 
+        internal static Bitmap GenerateMonochromeSquareNoiseAtLocation(Bitmap bitmap, Rectangle rect)
+        {
+            var graphics = Graphics.FromImage(bitmap);
+            graphics.FillRectangle(Brushes.White, rect.X, rect.Y, rect.Width, rect.Height);
+            for (int x = 0; x < bitmap.Width;)
+            {
+                var across = 32 * RNG.Random.Next(1, 3);
+                var size = new[] { 4, 8, 16, 32 }[RNG.Random.Next(4)];
+                for (int a = 0; a < across; a += size)
+                {
+                    for (int b = 0; b < rect.Height; b += size)
+                    {
+                        if (RNG.Random.NextDouble() > 0.5)
+                        {
+                            graphics.FillRectangle(Brushes.Black, a + x, rect.Y + b, size, size);
+                        }
+                    }
+                }
+
+                x += across;
+            }
+
+            return bitmap;
+        }
+
         private static Bitmap HorizontalFrozenWaves(Bitmap bitmap, bool isSmooth)
         {
             var graphics = Graphics.FromImage(bitmap);
