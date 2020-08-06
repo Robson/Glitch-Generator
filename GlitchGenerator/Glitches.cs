@@ -280,7 +280,7 @@
             return GenerateBinaryNoiseAtLocation(bitmap, new Rectangle(0, startY, bitmap.Width, height));
         }
 
-        internal static Bitmap HorizontalOffset(Bitmap bitmap)
+        internal static Bitmap HorizontalOffsetSingle(Bitmap bitmap)
         {
             var graphics = Graphics.FromImage(bitmap);
             var height = RNG.Random.Next(5, 100);
@@ -294,6 +294,57 @@
                 {
                     var colour = imageCopy.GetPixel((x + offsetAmount + imageCopy.Width) % imageCopy.Width, y);
                     graphics.FillRectangle(new SolidBrush(colour), new Rectangle(x, y, 1, 1));
+                }
+            }
+
+            return bitmap;
+        }
+
+        internal static Bitmap HorizontalOffsetAllWavey(Bitmap bitmap)
+        {
+            var imageCopy = new Bitmap(bitmap);
+            var pn = new PerlinNoise();
+            var vertical = 1;
+
+            var z = RNG.Random.NextDouble() * 1000;
+            for (int y = 0; y < bitmap.Height; y += vertical)
+            {                
+                var p1 = bitmap.Height * pn.OctavePerlin((float)y / (float)bitmap.Height, 0, z, 1, 1);
+                var p2 = bitmap.Height * pn.OctavePerlin((float)y / (float)bitmap.Height, 0, z, 10, 0.5);
+                var offsetAmount = (int)((p1 + p2) - bitmap.Height);
+                for (int y2 = y; y2 < y + vertical && y2 < bitmap.Height; y2++)
+                {
+                    for (int x = 0; x < bitmap.Width; x++)
+                    {
+                        var colour = imageCopy.GetPixel((x + offsetAmount + bitmap.Width) % bitmap.Width, y2);
+                        bitmap.SetPixel(x, y2, colour);
+                    }
+                }
+            }
+
+            return bitmap;
+        }
+
+        internal static Bitmap HorizontalOffsetAllRandom(Bitmap bitmap)
+        {
+            var imageCopy = new Bitmap(bitmap);
+            var pn = new PerlinNoise();
+            var vertical = RNG.Random.Next(1, 15);
+            var bumpy = 0.25 + RNG.Random.NextDouble();
+
+            var z = RNG.Random.NextDouble() * 1000;
+            for (int y = 0; y < bitmap.Height; y += vertical)
+            {
+                var p1 = bitmap.Height * pn.OctavePerlin((float)y / (float)bitmap.Height, 0, z, 1, 1);
+                var p2 = bitmap.Height * pn.OctavePerlin((float)y / (float)bitmap.Height, 0, z, 10, bumpy);
+                var offsetAmount = (int)((p1 + p2) - bitmap.Height);
+                for (int y2 = y; y2 < y + vertical && y2 < bitmap.Height; y2++)
+                {
+                    for (int x = 0; x < bitmap.Width; x++)
+                    {
+                        var colour = imageCopy.GetPixel((x + offsetAmount + bitmap.Width) % bitmap.Width, y2);
+                        bitmap.SetPixel(x, y2, colour);
+                    }
                 }
             }
 

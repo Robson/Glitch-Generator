@@ -66,6 +66,7 @@
     <Compile Include="Glitches.cs" />
     <Compile Include="IInitialImage.cs" />
     <Compile Include="InitialImages.cs" />
+    <Compile Include="Perlin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RNG.cs" />
