@@ -251,6 +251,7 @@
             this.Controls.Add(this.tableLayoutPanel2);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MinimumSize = new System.Drawing.Size(450, 400);
             this.Name = "FrmGenerate";
             this.Padding = new System.Windows.Forms.Padding(6);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
