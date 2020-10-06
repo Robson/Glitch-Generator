@@ -762,9 +762,8 @@
 
         internal static Bitmap ReduceColourPalette(Bitmap bitmap)
         {
-            var graphics = Graphics.FromImage(bitmap);
-            var levels = RNG.Random.Next(3, 17);
-            var sectors = 255f / (float)levels;
+            var level = RNG.Random.Next(2, 17);
+            var sectors = 255f / (float)level;
 
             for (int y = 0; y < bitmap.Height; y++)
             {
@@ -773,7 +772,7 @@
                     var r = (int)(Math.Round(bitmap.GetPixel(x, y).R / sectors) * sectors);
                     var g = (int)(Math.Round(bitmap.GetPixel(x, y).G / sectors) * sectors);
                     var b = (int)(Math.Round(bitmap.GetPixel(x, y).B / sectors) * sectors);
-                    bitmap.SetPixel(x, y, Color.FromArgb(1, r, g, b));
+                    bitmap.SetPixel(x, y, Color.FromArgb(255, r, g, b));
                 }
             }
 
