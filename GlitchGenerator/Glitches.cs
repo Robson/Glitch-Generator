@@ -259,6 +259,42 @@
             return bitmap;
         }
 
+        internal static Bitmap HorizontalErrorBars(Bitmap bitmap)
+        {
+            var graphics = Graphics.FromImage(bitmap);
+            var colour = RNG.Random.NextDouble() > 0.5 ? Brushes.Black : Brushes.White;
+
+            for (int y = RNG.Random.Next(50, 150); y < bitmap.Height + 500; y+=RNG.Random.Next(100, 300))
+            {
+                var heightBlock = RNG.Random.Next(25, 75);
+                var heightRandom = RNG.Random.Next(5, 15);
+                var width = 25 * RNG.Random.Next(1, 5);
+                var startY = y + (3 * heightRandom);
+
+                graphics.FillRectangle(colour, new RectangleF(0, startY, bitmap.Width, heightBlock));
+                if (RNG.Random.NextDouble() > 0.5)
+                {
+                    for (int x = 0; x < bitmap.Width + width; x += width)
+                    {
+                        var height = heightRandom * RNG.Random.Next(0, 3);
+                        graphics.FillRectangle(colour, new RectangleF(x, startY - height, width, height));
+                    }
+                }
+
+                if (RNG.Random.NextDouble() > 0.5)
+                {
+                    for (int x = 0; x < bitmap.Width + width; x += width)
+                    {
+                        var height = heightRandom * RNG.Random.Next(0, 3);
+                        graphics.FillRectangle(colour, new RectangleF(x, startY + heightBlock, width, height));
+                    }
+                }
+            }
+
+            return bitmap;
+        }
+
+
         internal static Bitmap HorizontalColourNoise(Bitmap bitmap)
         {
             var height = RNG.Random.Next(5, 100);
