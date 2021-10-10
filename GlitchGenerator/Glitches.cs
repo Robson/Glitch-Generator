@@ -294,7 +294,6 @@
             return bitmap;
         }
 
-
         internal static Bitmap HorizontalColourNoise(Bitmap bitmap)
         {
             var height = RNG.Random.Next(5, 100);
