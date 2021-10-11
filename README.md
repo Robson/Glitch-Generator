@@ -6,3 +6,5 @@ All of the included images are public domain.
 Here are some examples:
 
 <a href="https://i.imgur.com/Ogwfq3D.jpg"><img src="https://i.imgur.com/FNjcJ5t.png" /></a>
+
+[![X](https://www.codefactor.io/repository/github/robson/Glitch-Generator/badge?style=flat-square)](https://www.codefactor.io/repository/github/robson/Glitch-Generator)
