@@ -18,8 +18,6 @@ Here are some examples:
 
 <a href="https://i.imgur.com/Ogwfq3D.jpg"><img src="https://i.imgur.com/FNjcJ5t.png" /></a>
 
-[![X](https://www.codefactor.io/repository/github/robson/Glitch-Generator/badge?style=flat-square)](https://www.codefactor.io/repository/github/robson/Glitch-Generator)
-
 ## Compatibility
 
 This application has been successfully tested on the following operating systems:
