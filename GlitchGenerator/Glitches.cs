@@ -1,7 +1,8 @@
 ﻿namespace GlitchGenerator
 {
     using System;
-    using System.Diagnostics.SymbolStore;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Drawing.Imaging;
     using System.IO;
@@ -888,6 +889,88 @@
             }
 
             return bitmap;
+        }
+
+        internal static Bitmap HorizontalRandomlyOrderPixels(Bitmap bitmap)
+        {
+            var graphics = Graphics.FromImage(bitmap);
+            for (int y = 0; y < bitmap.Height; y++)
+            {
+                var rowColours = new List<Color>();
+                for (int x = 0; x < bitmap.Width; x++)
+                {
+                    rowColours.Add(bitmap.GetPixel(x, y));
+                }
+
+                RNG.RandomizeList(rowColours);
+
+                for (int x = 0; x < bitmap.Width; x++)
+                {
+                    bitmap.SetPixel(x, y, rowColours[x]);
+                }
+            }
+
+            return bitmap;
+        }
+
+        internal static Bitmap HorizontalRandomlySortPixels(Bitmap bitmap)
+        {
+            IComparer<Color> randomColourOrder = new HueComparer();
+
+            switch (RNG.Random.Next(3))
+            {
+                case 0:
+                    randomColourOrder = new HueComparer();
+                    break;
+                case 1:
+                    randomColourOrder = new LuminosityComparer();
+                    break;
+                case 2:
+                    randomColourOrder = new SaturationComparer();
+                    break;
+            }
+
+            for (int y = 0; y < bitmap.Height; y++)
+            {
+                var rowColours = new List<Color>();
+                for (int x = 0; x < bitmap.Width; x++)
+                {
+                    rowColours.Add(bitmap.GetPixel(x, y));
+                }
+
+                rowColours.Sort(randomColourOrder);
+
+                for (int x = 0; x < bitmap.Width; x++)
+                {
+                    bitmap.SetPixel(x, y, rowColours[x]);
+                }
+            }
+
+            return bitmap;
+        }
+
+        internal class HueComparer : IComparer<Color>
+        {
+            public int Compare(Color x, Color y)
+            {
+                return x.GetHue().CompareTo(y.GetHue());
+            }
+        }
+
+        internal class LuminosityComparer : IComparer<Color>
+        {
+            public int Compare(Color x, Color y)
+            {
+                return x.GetBrightness().CompareTo(y.GetBrightness());
+            }
+        }
+
+        internal class SaturationComparer : IComparer<Color>
+        {
+            public int Compare(Color x, Color y)
+            {
+                return x.GetSaturation().CompareTo(y.GetSaturation());
+            }
         }
 
         private static Bitmap RandomBlocks(Blocks blocks, Bitmap bitmap)

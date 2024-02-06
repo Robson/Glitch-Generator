@@ -37,6 +37,8 @@
                 new Glitch("Horizontal", "Offset, All, Random", Glitches.HorizontalOffsetAllRandom),
                 new Glitch("Horizontal", "Offset, All, Wavey", Glitches.HorizontalOffsetAllWavey),
                 new Glitch("Horizontal", "Offset, Partial", Glitches.HorizontalOffsetSingle),                
+                new Glitch("Horizontal", "Pixels, Randomly Order", Glitches.HorizontalRandomlyOrderPixels),
+                new Glitch("Horizontal", "Pixels, Sort Order", Glitches.HorizontalRandomlySortPixels),
                 new Glitch("Horizontal Freeze", "Fixed", Glitches.HorizontalFreezeFixed),
                 new Glitch("Horizontal Freeze", "Random", Glitches.HorizontalFreezeRandom),
                 new Glitch("Horizontal Freeze", "Waves Bumpy", Glitches.HorizontalFreezeWavesBumpy),
