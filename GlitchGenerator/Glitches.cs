@@ -1,6 +1,7 @@
 ﻿namespace GlitchGenerator
 {
     using System;
+    using System.Diagnostics.SymbolStore;
     using System.Drawing;
     using System.Drawing.Imaging;
     using System.IO;
@@ -35,6 +36,34 @@
         internal static Bitmap BlocksSingleRandom(Bitmap bitmap)
         {
             return RandomBlocks(Blocks.SingleRandom, bitmap);
+        }
+
+        internal static Bitmap BlocksDisplacement(Bitmap bitmap)
+        {
+            var height = RNG.Random.Next(5, 100);
+            var startY = RNG.Random.Next(bitmap.Height - height);
+            var graphics = Graphics.FromImage(bitmap);
+            var original = new Bitmap(bitmap);
+
+            for (int i = 0; i < bitmap.Width + height; i += height)
+            {
+                // grab part of the image from somewhere else
+                graphics.DrawImage(
+                    original,
+                    new Rectangle(
+                        i,
+                        startY,
+                        height,
+                        height),
+                    new Rectangle(
+                        RNG.Random.Next(0, bitmap.Width - height),
+                        RNG.Random.Next(0, bitmap.Height - height),
+                        height,
+                        height),
+                    GraphicsUnit.Pixel);
+            }
+
+            return bitmap;
         }
 
         internal static Bitmap Compress1(Bitmap bitmap)
@@ -564,6 +593,30 @@
             return bitmap;
         }
 
+        internal static Bitmap OverallDisplacement(Bitmap bitmap)
+        {
+            var graphics = Graphics.FromImage(bitmap);
+            var original = new Bitmap(bitmap);
+
+            for (int i = 0; i < 500; i++)
+            {
+                var destX = RNG.Random.Next(0, bitmap.Width) - (int)(bitmap.Width * 0.1);
+                var destY = RNG.Random.Next(0, bitmap.Width) - (int)(bitmap.Height * 0.1);
+                var sourceX = RNG.Random.Next(0, bitmap.Width) - (int)(bitmap.Width * 0.1);
+                var sourceY = RNG.Random.Next(0, bitmap.Width) - (int)(bitmap.Height * 0.1);
+                var width = RNG.Random.Next((int)(bitmap.Width * 0.1), (int)(bitmap.Width * 0.3));
+                var height = RNG.Random.Next((int)(bitmap.Height * 0.1), (int)(bitmap.Height * 0.3));
+
+                graphics.DrawImage(
+                    original,
+                    new Rectangle(destX, destY, width, height),
+                    new Rectangle(sourceX, sourceY, width, height),
+                    GraphicsUnit.Pixel);
+            }
+
+            return bitmap;
+        }
+
         internal static Bitmap OverallInvertColours(Bitmap bitmap)
         {
             var graphics = Graphics.FromImage(bitmap);
@@ -843,25 +896,32 @@
             var height = RNG.Random.Next(5, 40);
             var startY = RNG.Random.Next(bitmap.Height - height);
 
-            var booSwitch = RNG.Random.NextDouble() > 0.5;
+            var isSwitch = RNG.Random.NextDouble() > 0.5;
+            var isSameWidth = RNG.Random.NextDouble() > 0.5;
             var randomHue = RNG.Random.Next(360);
             var alpha = 255;
 
-            if (RNG.Random.NextDouble() > 0.5)
+            if (RNG.Random.NextDouble() > 0.75)
             {
                 alpha = RNG.Random.Next(50, 200);
             }
 
+            var width = height;
+
             for (int x = 0; x < bitmap.Width + 500;)
             {
-                var width = RNG.Random.Next(5, 30);
+                if (!isSameWidth)
+                {
+                    width = RNG.Random.Next(5, 30);
+                }
+
                 var area = new Rectangle(x, startY, width, height);
-                var colour = booSwitch ? Color.White : Color.Black;
+                var colour = isSwitch ? Color.White : Color.Black;
 
                 switch (blocks)
                 {
                     case Blocks.Monochrome:
-                        booSwitch = !booSwitch;
+                        isSwitch = !isSwitch;
                         break;
 
                     case Blocks.Random:

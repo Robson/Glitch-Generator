@@ -8,10 +8,11 @@
         {
             return new List<Glitch>()
             {
-                new Glitch("Blocks", "Image", Glitches.BlocksImage),
+                new Glitch("Blocks", "Average Colour", Glitches.BlocksImage),
+                new Glitch("Blocks", "Displacement", Glitches.BlocksDisplacement),
                 new Glitch("Blocks", "Monochrome", Glitches.BlocksMonochrome),
-                new Glitch("Blocks", "Random", Glitches.BlocksRandom),
-                new Glitch("Blocks", "Single Random", Glitches.BlocksSingleRandom),
+                new Glitch("Blocks", "Random, Multiple Colours", Glitches.BlocksRandom),
+                new Glitch("Blocks", "Random, Single Colour", Glitches.BlocksSingleRandom),
                 new Glitch("Compress Once", "1", Glitches.Compress1),
                 new Glitch("Compress Once", "25", Glitches.Compress25),
                 new Glitch("Compress Once", "50", Glitches.Compress50),
@@ -49,7 +50,8 @@
                 new Glitch("Offset Colours", "Red", Glitches.OffsetRed),
                 new Glitch("Offset Colours", "Green", Glitches.OffsetGreen),
                 new Glitch("Offset Colours", "Blue", Glitches.OffsetBlue),
-                new Glitch("Overall", "Border", Glitches.OverallBorder),                
+                new Glitch("Overall", "Border", Glitches.OverallBorder),
+                new Glitch("Overall", "Displacement", Glitches.OverallDisplacement),
                 new Glitch("Overall", "Invert Colours", Glitches.OverallInvertColours),
                 new Glitch("Overall", "Noise", Glitches.OverallNoise),
                 new Glitch("Overall", "Reduce Colour Palette", Glitches.ReduceColourPalette),
