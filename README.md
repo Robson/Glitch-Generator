@@ -40,4 +40,4 @@ The code is written using Visual Studio 2022, but other editions of Visual Studi
 
 ## Validation
 
-[![X](https://www.codefactor.io/repository/github/robson/Glitch-Generator/badge?style=flat-square)](https://www.codefactor.io/repository/github/robson/Minecraft-Glazed-Terracotta-Pattern-Generator)
+[![X](https://www.codefactor.io/repository/github/robson/Glitch-Generator/badge?style=flat-square)](https://www.codefactor.io/repository/github/robson/glitch-generator)
